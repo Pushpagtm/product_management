@@ -8,7 +8,7 @@ function Home(props) {
         <>
          <Navbar/>
         <Header/>
-        <ProductList/>
+       <ProductList/>
         </>
    
     );
