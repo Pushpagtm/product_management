@@ -15,15 +15,17 @@ const initialState = {
 //     return response.data;
 //   }
 // );
-export const postProductsAsync = createAsyncThunk('product/postProduct', async (page, { rejectWithValue }) => {
+export const postProductsAsync = createAsyncThunk('product/postProduct', async (data, { rejectWithValue }) => {
+  console.log("================================================================================")
     try {
-      const { data } = await axios.post(`http://localhost:8000/products`);
+      console.log('============================data',data)
+      const { data } = await axios.post(`http://localhost:8000/products`,data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
   })
-export const fetchAllProductsAsync = createAsyncThunk('product/fetchAllProducts', async (page, { rejectWithValue }) => {
+export const fetchAllProductsAsync = createAsyncThunk('product/fetchAllProducts', async (data, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`http://localhost:8000/products`);
       return data;
