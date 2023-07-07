@@ -176,7 +176,7 @@ function CreateProduct(props) {
                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                   <p>
                     or
-                    <Link to="/preview">
+                    <Link to="admin/preview">
                       <button
                         type="button"
                         className="font-medium text-indigo-600 hover:text-indigo-500"

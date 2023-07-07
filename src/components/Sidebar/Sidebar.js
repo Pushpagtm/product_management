@@ -2,9 +2,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import NotificationDropdown from "../../components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "../../components/Dropdowns/UserDropdown.js";
-
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   return (
@@ -26,15 +23,6 @@ export default function Sidebar() {
           >
             Service Application
           </Link>
-          {/* User */}
-          <ul className="flex flex-wrap items-center list-none md:hidden">
-            <li className="relative inline-block">
-              <NotificationDropdown />
-            </li>
-            <li className="relative inline-block">
-              <UserDropdown />
-            </li>
-          </ul>
           {/* Collapse */}
           <div
             className={
@@ -45,14 +33,7 @@ export default function Sidebar() {
             {/* Collapse header */}
             <div className="block pb-4 mb-4 border-b border-solid md:min-w-full md:hidden border-blueGray-200">
               <div className="flex flex-wrap">
-                <div className="w-6/12">
-                  <Link
-                    className="inline-block p-4 px-0 mr-0 text-sm font-bold text-left uppercase md:block md:pb-2 text-blueGray-600 whitespace-nowrap"
-                    to="/"
-                  >
-                    Notus React
-                  </Link>
-                </div>
+              
                 <div className="flex justify-end w-6/12">
                   <button
                     type="button"
@@ -65,7 +46,7 @@ export default function Sidebar() {
               </div>
             </div>
             {/* Form */}
-            <form className="mt-6 mb-4 md:hidden">
+            <form className="mt-6 mb-8 md:hidden">
               <div className="pt-0 mb-3">
                 <input
                   type="text"
@@ -87,178 +68,44 @@ export default function Sidebar() {
               <li className="items-center">
                 <Link
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    "text-xs uppercase py-3 font-bold block "
                   }
                   to="/admin/dashboard"
                 >
-                  <i
-                    className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
+                 
                   Dashboard
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/settings"
+                to='/admin/form'
+                  className=
+                    "text-xs uppercase py-3 font-bold block "
                 >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Settings
+                 
+                  Add Product
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/tables"
+                to='/admin/preview'
+                  className=
+                    "text-xs uppercase py-3 font-bold block " 
                 >
-                  <i
-                    className={
-                      "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/tables") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Tables
+                  Preview Product
                 </Link>
               </li>
 
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/maps") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/admin/maps"
-                >
-                  <i
-                    className={
-                      "fas fa-map-marked mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/maps") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Maps
-                </Link>
-              </li>
+             
             </ul>
 
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="block pt-1 pb-4 text-xs font-bold no-underline uppercase md:min-w-full text-blueGray-500">
-              Auth Layout Pages
-            </h6>
-            {/* Navigation */}
 
-            <ul className="flex flex-col list-none md:flex-col md:min-w-full md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="block py-3 text-xs font-bold uppercase text-blueGray-700 hover:text-blueGray-500"
-                  to="/auth/login"
-                >
-                  <i className="mr-2 text-sm fas fa-fingerprint text-blueGray-400"></i>{" "}
-                  Login
-                </Link>
-              </li>
+            
 
-              <li className="items-center">
-                <Link
-                  className="block py-3 text-xs font-bold uppercase text-blueGray-700 hover:text-blueGray-500"
-                  to="/auth/register"
-                >
-                  <i className="mr-2 text-sm fas fa-clipboard-list text-blueGray-300"></i>{" "}
-                  Register
-                </Link>
-              </li>
-            </ul>
-
-            {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
-            {/* Heading */}
-            <h6 className="block pt-1 pb-4 text-xs font-bold no-underline uppercase md:min-w-full text-blueGray-500">
-              User Datas
-            </h6>
-            {/* Navigation */}
-
-            <ul className="flex flex-col list-none md:flex-col md:min-w-full md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="block py-3 text-xs font-bold uppercase text-blueGray-700 hover:text-blueGray-500"
-                  to="/admin/user"
-                >
-                  <i className="mr-2 text-sm fas fa-fingerprint text-blueGray-400"></i>{" "}
-                  User
-                </Link>
-              </li>
-            </ul>
-
-            <ul className="flex flex-col list-none md:flex-col md:min-w-full md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="block text-xs font-bold uppercase text-blueGray-700 hover:text-blueGray-500"
-                  to="/admin/category"
-                >
-                  <i class="fa-solid fa-layer-group mr-2 text-sm text-blueGray-400"></i>
-                  Category
-                </Link>
-              </li>
-
-            </ul>
-
-            <ul className="flex flex-col pt-2 list-none md:flex-col md:min-w-full md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="block text-xs font-bold uppercase text-blueGray-700 hover:text-blueGray-500"
-                  to="/admin/service"
-                >
-                  <i class="fa-solid fa-square-poll-horizontal mr-2 text-sm text-blueGray-400"></i>
-                  Services
-                </Link>
-              </li>
-            </ul>
-
-            <ul className="flex flex-col pt-2 list-none md:flex-col md:min-w-full md:mb-4">
-              <li className="items-center">
-                <Link
-                  className="block text-xs font-bold uppercase text-blueGray-700 hover:text-blueGray-500"
-                  to="/admin/servicefeature"
-                >
-                  <i class="fa-solid fa-list mr-2 text-sm text-blueGray-400"></i>
-                  Service Feature
-                </Link>
-              </li>
-            </ul>
+           
+      
 
            
           </div>
