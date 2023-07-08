@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { fetchAllProductsAsync, selectAllProducts } from "../productSlice";
+import { useDispatch, useSelector } from "react-redux";
 export default function PreviewProduct(props) {
-  const products = [
-    {
-      id: 1,
-      name: "Basic Tee",
-      href: "#",
-      imageSrc:
-        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-      imageAlt: "Front of men's Basic Tee in black.",
-      price: "35",
-      color: "Black",
-    },
-  ];
+  const dispatch=useDispatch();
+  const products = useSelector(selectAllProducts);
+  useEffect(()=>{
+    dispatch(fetchAllProductsAsync())
+  
+  },[dispatch])
+  
+  console.log('=============Products',products)
+
+  
+
   return (
     <div>
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -43,20 +44,20 @@ export default function PreviewProduct(props) {
                         >
                           <div className="aspect-h-60  w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                             <img
-                              src={product.imageSrc}
-                              alt={product.name}
+                              src={product.image}
+                              alt={product.title}
                               className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                             />
                           </div>
                           <div className="mt-4 flex justify-between">
                             <div>
                               <h3 className="text-sm text-gray-700">
-                                <div href={product.imageSrc}>
+                                <div href={product.image}>
                                   <span
                                     aria-hidden="true"
                                     className="absolute inset-0"
                                   />
-                                  {product.name}
+                                  {product.title}
                                 </div>
                               </h3>
                             </div>

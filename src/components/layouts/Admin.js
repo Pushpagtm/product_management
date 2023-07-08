@@ -20,15 +20,15 @@ export default function Admin() {
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
 
-        <FormPage />
+        {/* <FormPage /> */}
 
         <div className="w-full px-4 mx-auto -m-24 md:px-10">
-          <PreviewPage />
+          {/* <PreviewPage /> */}
           <Routes>
-            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/home" element={<Dashboard />} />
 
-            <Route path="/admin/form" element={<FormPage />} />
-            <Route path="/admin/preview" element={<PreviewPage />} />
+            <Route path="/form" element={<FormPage />} />
+            <Route path="/preview" element={<PreviewPage />} />
           </Routes>
 
           <FooterAdmin />

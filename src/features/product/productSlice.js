@@ -7,27 +7,32 @@ const initialState = {
 
  
 };
-// export const fetchAllProductsAsync = createAsyncThunk(
-//   'product/fetchAllProducts',
-//   async () => {
-//     const response = await fetchAllProducts();
-   
-//     return response.data;
-//   }
-// );
-export const postProductsAsync = createAsyncThunk('product/postProduct', async (data, { rejectWithValue }) => {
-  console.log("================================================================================")
-    try {
-      console.log('============================data',data)
-      const { data } = await axios.post(`http://localhost:8000/products`,data);
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  })
+export const postProductsAsync=createAsyncThunk('product/postProduct',async(data,{rejectWithValue})=>{
+  try{
+    let formData = new FormData();
+        formData.append('title',data.title);
+        formData.append('price',data.price);
+        formData.append('description',data.description);
+        formData.append('image',data.image[0]);
+        const config = {     
+          headers: { 'content-type': 'multipart/form-data' }
+          
+      }
+      const response = await axios.post('http://localhost:8000/products', formData,config);
+
+  }catch (error) {
+                 return rejectWithValue(error.message);}
+})
+
+
+
+
+
+
+
 export const fetchAllProductsAsync = createAsyncThunk('product/fetchAllProducts', async (data, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`http://localhost:8000/products`);
+      const { data } = await axios.get(`http://localhost:8000/`);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -41,8 +46,6 @@ export const fetchAllProductsAsync = createAsyncThunk('product/fetchAllProducts'
 //     return response.data;
 //   }
 // );
-
-
 
 export const productSlice = createSlice({
   name: 'product',
@@ -58,6 +61,7 @@ export const productSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(postProductsAsync.fulfilled, (state, action) => {
+
         state.status = 'idle';
         state.products = action.payload;
       })

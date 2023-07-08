@@ -79,7 +79,7 @@ export default function Sidebar() {
 
               <li className="items-center">
                 <Link
-                to='/admin/form'
+                to='/dashboard/form'
                   className=
                     "text-xs uppercase py-3 font-bold block "
                 >
@@ -90,7 +90,7 @@ export default function Sidebar() {
 
               <li className="items-center">
                 <Link
-                to='/admin/preview'
+                to='/dashboard/preview'
                   className=
                     "text-xs uppercase py-3 font-bold block " 
                 >

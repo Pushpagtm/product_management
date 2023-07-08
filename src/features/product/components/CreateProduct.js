@@ -1,30 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Navigate } from "react-router-dom";
-
+import axios from 'axios';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { postProductsAsync, selectAllProducts } from '../productSlice';
-function CreateProduct(props) {
+function CreateProduct(props) { 
   const dispatch = useDispatch(); 
-  // const product=useSelector(selectAllProducts);
+  const product=useSelector(selectAllProducts);
+  
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors },
       } = useForm();
+
+      const handleDispatch =(data)=>{
+        dispatch(postProductsAsync(data))
+      }
+
+
     return (
         <div>
             <div className="mx-auto max-w-7xl px-4  sm:px-6 lg:px-8">
         <div className="grid p-5 grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
+          
             <form
               className="bg-white px-5 py-12 mt-12"
               noValidate
-              onSubmit={handleSubmit(async(data)=> await dispatch(
-                postProductsAsync( data )
-              )
-            )}
+              onSubmit={handleSubmit(async(data)=> handleDispatch(data))}
             
             >
               <div className="space-y-12">
@@ -48,6 +53,7 @@ function CreateProduct(props) {
                         <input
                           type="text"
                           name="title"
+                      
                           id="title"
                           {...register("title", {
                             required: "Name is required",
@@ -67,6 +73,7 @@ function CreateProduct(props) {
                       <div className="mt-2">
                         <input
                           id="description"
+                         
                           name="description"
                           type="text"
                           {...register("description", {
@@ -88,6 +95,7 @@ function CreateProduct(props) {
                       <div className="mt-2">
                         <input
                           id="price"
+                         
                           name="price"
                           type="number"
                           {...register("price", {
@@ -109,6 +117,7 @@ function CreateProduct(props) {
                         <input
                           id="image"
                           name="image"
+                         
                           type="file"
                           {...register("image", {
                             required: "image is required",
