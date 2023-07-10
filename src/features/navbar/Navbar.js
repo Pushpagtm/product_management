@@ -2,10 +2,13 @@ import { Fragment } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', current: true },
+const userToken = localStorage.getItem("token") ?localStorage.getItem("token") : null
+console.log(userToken);
 
-  { name: 'Login', href: '/login', current: false }
+const navigation = [
+  { name: 'Dashboard', isAuthenticated:userToken?true:false, href: '/dashboard', current: true },
+
+  { name: 'Login',isAuthenticated:true, href: '/login', current: false }
 ]
 
 function classNames(...classes) {
@@ -13,6 +16,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar({ children }) {
+
   return (
     <Disclosure as="nav" className="bg-gray-700">
       {({ open }) => (
@@ -35,17 +39,25 @@ export default function Navbar({ children }) {
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
+                      <>
+                      {
+                        item.isAuthenticated?(
+                          <a
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(
+                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'rounded-md px-3 py-2 text-sm font-medium'
+                          )}
+                          aria-current={item.current ? 'page' : undefined}
+                        >
+                          {item.name}
+                        </a>
+                        ):null
+                      }
+                      
+                      </>
+                  
                     ))}
                   </div>
                 </div>

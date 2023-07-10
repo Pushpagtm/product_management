@@ -19,6 +19,7 @@ export default function Admin() {
       <Sidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
+        {/* <h1 className="flex justify-center align-middle text-lg  ">WELCOME TO DASHBOARD</h1> */}
       
 
         {/* <FormPage /> */}
@@ -31,7 +32,7 @@ export default function Admin() {
             <Route path="/preview" element={<PreviewPage />} />
           </Routes>
 
-          <FooterAdmin />
+        
         </div>
       </div>
     </>

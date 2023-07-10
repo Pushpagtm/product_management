@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate,useNavigate  } from "react-router-dom";
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { postProductsAsync, selectAllProducts } from "../productSlice";
 function CreateProduct(props) {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [preview, setShowPreview] = useState();
   const product = useSelector(selectAllProducts);
+  const [file,setFile] = useState();
 
   const {
     register,
@@ -19,8 +22,16 @@ function CreateProduct(props) {
   const handleDispatch = (data) => {
     dispatch(postProductsAsync(data));
   };
+  const handleSubmitForm=async() =>{
+    await dispatch(postProductsAsync(preview));
+    navigate('/dashboard/preview');
+
+
+  }
 
   const showPreview = async (dataItem) => {
+    setFile(URL.createObjectURL(dataItem.image[0]))
+    console.log(dataItem)
     setShowPreview(dataItem);
     // await handleDispatch(dataItem);
   };
@@ -145,27 +156,26 @@ function CreateProduct(props) {
           </div>
           <div className="lg:col-span-2">
             <div className="mx-auto bg-white max-w-5xl px-3 sm:px-3 lg:px-3">
-              <div className="mt-8 border-t border-gray-200 px-0 py-3 sm:px-0">
+              <div className="mt-12 border-t border-gray-200 px-0 py-3 sm:px-0">
                 <h1 className="text-4xl my-4 font-bold tracking-tight text-gray-900">
                   Product Preview
                 </h1>
               </div>
 
               <div className="border-t border-gray-200 px-3 py-3 sm:px-3">
-              {/* <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+              <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                           <img
-                            src={`${base_url}/${preview.image}`}
-                            alt={preview.title}
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div> */}
+                            src={file} />
+
+                </div>
                 <div className="flex justify-between my-2 text-base font-medium text-gray-900">
-                  <p>Name</p>
-                  <p>{preview ? preview.title : "N/A"}</p>
-                </div>  
+                  <p>Title</p>
+                  <p>{preview?preview.title: "N/A"}</p>
+                </div>
                 <div className="flex justify-between my-2 text-base font-medium text-gray-900">
                   <p>Description</p>
                   <p>{preview?preview.description : "N/A"}</p>
+
                 </div>
                 <div className="flex justify-between my-2 text-base font-medium text-gray-900">
                   <p>Price</p>
@@ -173,7 +183,7 @@ function CreateProduct(props) {
                 </div>
 
                 <div className="mt-6">
-                  <div className="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={()=>dispatch(postProductsAsync(preview))}>
+                  <div className="flex cursor-pointer items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700" onClick={()=>handleSubmitForm()}>
                     Add Product
                   </div>
                 </div>

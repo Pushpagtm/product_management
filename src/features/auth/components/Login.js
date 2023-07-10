@@ -4,14 +4,15 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import axios from 'axios';
 function Login(props) {
-  
+
     const { register, handleSubmit,formState:{errors} } = useForm();
     const handleLogin=async(dataItem)=>{
       axios.post('http://localhost:8000/login',{
         email: dataItem.email,
         password: dataItem.password,
-       }).then((response)=>{
-        console.log(response)
+       }).then((data)=>{
+        localStorage.setItem('token',data.data.token);
+        console.log(data)
        })
 
 

@@ -8,6 +8,7 @@ import PreviewPage from './pages/PreviewPage';
 import Dashboard from './features/admin/Dashboard';
 import Admin from './components/layouts/Admin';
 import Protected from './features/auth/components/Protected';
+import FooterAdmin from './components/Footers/FooterAdmin';
 function App() {
   return (
    
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/signup" element={<SignupPage/>} />
       </Routes>
+      <FooterAdmin/>
     </Router>
   </div>
   );
