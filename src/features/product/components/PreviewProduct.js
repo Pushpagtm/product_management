@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
-import { fetchAllProductsAsync, selectAllProducts } from "../productSlice";
+import { deleteProductAsync, fetchAllProductsAsync, selectAllProducts } from "../productSlice";
 import { useDispatch, useSelector } from "react-redux";
 export default function PreviewProduct(props) {
   const dispatch=useDispatch();
@@ -10,8 +10,13 @@ export default function PreviewProduct(props) {
     dispatch(fetchAllProductsAsync())
   
   },[dispatch])
+   const handleDelete=async(id)=>{
+
+    await dispatch(deleteProductAsync(id));
+  }
   
-  console.log('=============Products',products)
+  const base_url = process.env.REACT_APP_BASE_URL
+
 
   
 
@@ -22,6 +27,7 @@ export default function PreviewProduct(props) {
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
             All Products
           </h1>
+        
         </div>
 
         <section aria-labelledby="products-heading" className="pb-24 pt-6">
@@ -40,11 +46,11 @@ export default function PreviewProduct(props) {
                       <Link>
                         <div
                           key={product.id}
-                          className="group relative border-solid border-2 p-2 shadow-lg"
+                          className="group  border-solid border-2 p-2 shadow-lg"
                         >
                           <div className="aspect-h-60  w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
                             <img
-                              src={product.image}
+                              src={`${base_url}/${product.image}`}
                               alt={product.title}
                               className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                             />
@@ -52,10 +58,10 @@ export default function PreviewProduct(props) {
                           <div className="mt-4 flex justify-between">
                             <div>
                               <h3 className="text-sm text-gray-700">
-                                <div href={product.image}>
+                                <div href={`${base_url}/product.image`}>
                                   <span
                                     aria-hidden="true"
-                                    className="absolute inset-0"
+                                    // className="absolute inset-0"
                                   />
                                   {product.title}
                                 </div>
@@ -68,11 +74,9 @@ export default function PreviewProduct(props) {
                             </div>
                           </div>
                           <span className="flex justify-end p-5 gap-3">
-                            <PencilIcon
-                              className="h-5 w-5"
-                              aria-hidden="true"
-                            />
-                            <TrashIcon className="h-5 w-5" aria-hidden="true" />
+                           
+                            <TrashIcon className="h-5 w-5" aria-hidden="true"  onClick={()=>{handleDelete(product.id)}} /> 
+                           
                           </span>
                         </div>
                       </Link>

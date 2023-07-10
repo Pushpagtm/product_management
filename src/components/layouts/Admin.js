@@ -19,6 +19,7 @@ export default function Admin() {
       <Sidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
+      
 
         {/* <FormPage /> */}
 
@@ -26,7 +27,6 @@ export default function Admin() {
           {/* <PreviewPage /> */}
           <Routes>
             <Route path="/home" element={<Dashboard />} />
-
             <Route path="/form" element={<FormPage />} />
             <Route path="/preview" element={<PreviewPage />} />
           </Routes>

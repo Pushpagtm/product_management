@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
+
+import axios from 'axios';
 function Login(props) {
-    const { register, handleSubmit,formState:{errors} } = useForm()
+  
+    const { register, handleSubmit,formState:{errors} } = useForm();
+    const handleLogin=async(dataItem)=>{
+      axios.post('http://localhost:8000/login',{
+        email: dataItem.email,
+        password: dataItem.password,
+       }).then((response)=>{
+        console.log(response)
+       })
+
+
+    }
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+      // Fetch registered users
+      axios.get('http://localhost:8000/users')
+        .then(response => {
+          setUsers(response.data);
+        })
+        .catch(error => {
+          console.error('Error retrieving users:', error);
+        });
+    }, []);
     return (
+    
+     <>
+        {/* {users && <Navigate to='/dashboard' replace={true}/>} */}
         <div>
              <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -14,7 +41,8 @@ function Login(props) {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" >
+          <form className="space-y-6" action="#" onSubmit={handleSubmit(async (data) => handleLogin(data))}  >
+          
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -85,6 +113,7 @@ function Login(props) {
       </div>
             
         </div>
+        </>
     );
 }
 

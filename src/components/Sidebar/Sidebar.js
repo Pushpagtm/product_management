@@ -70,7 +70,7 @@ export default function Sidebar() {
                   className={
                     "text-xs uppercase py-3 font-bold block "
                   }
-                  to="/admin/dashboard"
+                  to="/dashboard"
                 >
                  
                   Dashboard

@@ -1,12 +1,27 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
+
 import { Link, Navigate } from "react-router-dom";
+
+import axios from 'axios';
 function Signup(props) {
+
     const {
         register,
         handleSubmit,
         formState: { errors },
       } = useForm();
+      const handleRegister=async(dataItem)=>{
+        axios.post('http://localhost:8000/register',{
+          email: dataItem.email,
+          password: dataItem.password,
+         }).then((response)=>{
+          console.log(response)
+         })
+
+
+      }
+    
     return (
         <div>
               <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -21,6 +36,7 @@ function Signup(props) {
             noValidate
             className="space-y-6"
             action="#"
+            onSubmit={handleSubmit(async (data) => handleRegister(data))}
            
           >
             <div>
@@ -71,13 +87,7 @@ function Signup(props) {
                   id="password"
                   {...register("password", {
                     required: "Password is required",
-                    pattern: {
-                      value:
-                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$/gm,
-                      message: `- at least 5 characters\n
-                  - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                  - Can contain special characters`,
-                    },
+                  
                   })}
                   type="password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -87,7 +97,7 @@ function Signup(props) {
                 )}
               </div>
             </div>
-            <div>
+            {/* <div>
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
@@ -113,7 +123,7 @@ function Signup(props) {
                   </p>
                 )}
               </div>
-            </div>
+            </div> */}
 
             <div>
               <button

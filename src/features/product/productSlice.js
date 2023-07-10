@@ -4,8 +4,6 @@ import axios from 'axios';
 const initialState = {
   products: [],
   status: 'idle',
-
- 
 };
 export const postProductsAsync=createAsyncThunk('product/postProduct',async(data,{rejectWithValue})=>{
   try{
@@ -20,6 +18,16 @@ export const postProductsAsync=createAsyncThunk('product/postProduct',async(data
       }
       const response = await axios.post('http://localhost:8000/products', formData,config);
 
+  }catch (error) {
+                 return rejectWithValue(error.message);}
+})
+
+
+export const deleteProductAsync=createAsyncThunk('product/delete/',async(id,{rejectWithValue})=>{
+  try{
+    console.log(id,"==================================================api id")
+     const apiId=await axios.delete(`http://localhost:8000/product/${id}`);
+    return apiId.data;
   }catch (error) {
                  return rejectWithValue(error.message);}
 })
@@ -71,6 +79,16 @@ export const productSlice = createSlice({
       .addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
         state.status = 'idle';
         state.products = action.payload;
+      })
+      .addCase(deleteProductAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteProductAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        const index = state.products.findIndex(
+          (product) => product.id === parseInt(action.payload.data)
+        );
+        state.products.splice(index, 1);
       })
       
   },
